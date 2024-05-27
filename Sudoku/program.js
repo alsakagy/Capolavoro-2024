@@ -65,11 +65,11 @@ function IniziaGioco()
             }
             if (riga == 2 || riga == 5)
             {
-                casella.classList.add("lineeOrizzontale"); // aggiunge l'elemento nella classe "lineeOrizzontali"
+                casella.style.borderBottom = "1px solid black";
             }
             if (colo == 2 || colo == 5)
             {
-                casella.classList.add("lineeVerticali"); // aggiunge l'elemento nella classe "lineeVeriticali"
+                casella.style.borderRight = "1px solid black";
             }
             casella.addEventListener("click", CasellaSelezionata); // [riga 1]
             casella.classList.add("casella"); // aggiunge l'elemento nella classe "casella"

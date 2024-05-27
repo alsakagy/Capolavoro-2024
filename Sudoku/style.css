@@ -70,6 +70,7 @@ body
     align-items: center;
 }
 
+/*non so perche ma obbligatori*/
 .numeroSelezionato
 {
     background-color: rgb(221, 221, 221);
@@ -78,15 +79,4 @@ body
 .caselleIniziali
 {
     background-color: rgb(221, 221, 221);
-}
-
-/* servono per l'estetica della griglia, rendono visibili le righe che creano i 3x3 nella griglia*/
-.lineeOrizzontale
-{
-    border-bottom: 1px solid black;
-}
-
-.lineeVerticali
-{
-    border-right: 1px solid black;
 }
