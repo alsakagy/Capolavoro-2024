@@ -1,0 +1,92 @@
+/* si riferisce al tag*/
+body
+{
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    background-color: antiquewhite;
+}
+
+/* attributi che si danno a tutti quelli che hanno l'id come quello indicato*/
+#background
+{
+    width: 500px;
+    height: 625px;
+
+    background-color: rgb(211, 197, 179);
+    margin: 0 auto;
+}
+
+#griglia
+{
+    width: 450px;
+    height: 450px;
+
+    background-color: white;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+#spazioNumeri
+{
+    width: 450px;
+    height: 50px;
+
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* sono classi che possono essere assegnate*/
+.casella
+{
+    /* attributi per la casella*/
+    width: 48px; 
+    height: 48px;
+    border: 1px solid rgb(180, 180, 180);
+
+    /* attributi per il testo*/
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.numero
+{
+    /* attributi per la casella*/
+    width: 44px; 
+    height: 44px;
+    border: 1px solid black;
+    margin: 2px;
+    background-color: white;
+
+    /* attributi per il testo*/
+    font-size: 20px;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.numeroSelezionato
+{
+    background-color: rgb(221, 221, 221);
+}
+
+.caselleIniziali
+{
+    background-color: rgb(221, 221, 221);
+}
+
+/* servono per l'estetica della griglia, rendono visibili le righe che creano i 3x3 nella griglia*/
+.lineeOrizzontale
+{
+    border-bottom: 1px solid black;
+}
+
+.lineeVerticali
+{
+    border-right: 1px solid black;
+}
