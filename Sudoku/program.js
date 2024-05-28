@@ -3,34 +3,13 @@
 // variabili inizialmente a null
 var numSele = null;
 var casellaSele = null;
+var numErrori = 0;
 
 // numeri da inserire all'inizio del gioco
-var grigliaIniziale =
-[
-    "-2-5-1-9-",
-    "8--2-3--6",
-    "-3--6--7-",
-    "--1---6--",
-    "54-----19",
-    "--2---7--",
-    "-9--3--8-",
-    "2--8-4--7",
-    "-1-9-7-6-"
-]
+var grigliaIniziale = [ "-2-5-1-9-", "8--2-3--6", "-3--6--7-", "--1---6--", "54-----19", "--2---7--", "-9--3--8-", "2--8-4--7", "-1-9-7-6-" ]
 
 // soluzione finale
-var soluzione =
-[
-    "426571398",
-    "857293146",
-    "139468275",
-    "971385624",
-    "543726819",
-    "682149753",
-    "794632581",
-    "265814937",
-    "318957462"
-]
+var soluzione = [ "426571398", "857293146", "139468275", "971385624", "543726819", "682149753", "794632581", "265814937", "318957462" ]
 
 window.onload = function()
 {
@@ -61,15 +40,15 @@ function IniziaGioco()
             if (grigliaIniziale[riga][colo] != "-") // se c'è un "-" lo salta, lasciando lo spazio vuoto
             {
                 casella.innerText = grigliaIniziale[riga][colo];
-                casella.classList.add("caselleIniziali"); // aggiunge l'elemento nella classe "caselleIniziali"
+                casella.classList.add("casellaIniziale");// aggiunge l'elemento nella classe "casellaIniziale"
             }
             if (riga == 2 || riga == 5)
             {
-                casella.style.borderBottom = "1px solid black";
+                casella.style.borderBottom = "1px solid black"; // creo una linea più marcata rispetto alle altre
             }
             if (colo == 2 || colo == 5)
             {
-                casella.style.borderRight = "1px solid black";
+                casella.style.borderRight = "1px solid black"; // creo una linea più marcata rispetto alle altre
             }
             casella.addEventListener("click", CasellaSelezionata); // [riga 1]
             casella.classList.add("casella"); // aggiunge l'elemento nella classe "casella"
@@ -92,27 +71,29 @@ function CasellaSelezionata()
 {
     if (numSele) // fa qualcosa solo se è stato selezionato un numero tra i 9 sottostanti
     {
-        // this è "l'oggetto" che ha richiamato la funzione
-        if (this.innerText != "") // se la casella è vuota, esce dalla funzione, evitando di sovrascrivere il contenuto
-        {
-            return;
-        }
-
         // gli "id" sono strutturati così = "0-0" "0-1" ... "8-8"
-        let coord = this.id.split("-"); // prende l'id come stringa e lo divide in 2 stringhe
-        let riga = parseInt(coord[0]); // prende la cordinata Y (riga)
-        let colo = parseInt(coord[1]); // prende la cordinata X (colonna)
+        //let coord = this.id.split("-"); // prende l'id come stringa e lo divide in 2 stringhe
+        //let riga = parseInt(coord[0]); // prende la cordinata Y (riga)
+        //let colo = parseInt(coord[1]); // prende la cordinata X (colonna)
 
-        if (soluzione[riga][colo] == numSele.id) // se il valore nella posizione [riga][colonna], all'interno della soluzione è uguale all'id del numero selezionato (l'id equivale al numero [riga 43])
+        let classi = this.className.split(" "); // ottiene un array con le classi dell'oggetto che sta richiamando la funzione
+        let controllo = true;
+
+        // ciclo che controlla tutti le classi
+        for(let i = 0; i <= classi.length; i++)
         {
-            // this è "l'oggetto" che ha richiamato la funzione
-            this.innerText = numSele.id; // inserisce il numero nella casella della griglia
+            if(classi[i] == "casellaIniziale") // se fa parte delle caselle iniziali, cambia il controllo
+            {
+                controllo = false;
+            }
         }
-        else
+
+        if(controllo == true) // se non è una casella iniziale
         {
-            //continuo successivo
-            //inserire comunque i numeri ma rendere rossa la casella cosi da far capire l'errore
-            // in più rendere possibile la sovrascrittura in caso di casella rossa
+            this.innerText = numSele.id; // inserisce il numero nella casella della griglia
+        }else
+        {
+            numErrori++; // incrementa il numero di errori
         }
     }
 }

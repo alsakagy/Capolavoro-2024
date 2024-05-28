@@ -10,10 +10,20 @@ body
 #background
 {
     width: 500px;
-    height: 625px;
+    height: 700px;
 
     background-color: rgb(211, 197, 179);
     margin: 0 auto;
+}
+
+#controlli
+{
+    width: 450px;
+    height: 50px;
+
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 #griglia
@@ -70,13 +80,28 @@ body
     align-items: center;
 }
 
+.bottoni
+{
+    width: 75px;
+    height: 35px;
+    border-radius: 5px;
+    border: 1px solid black;
+
+    background-color: rgb(221, 221, 221);
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+}
+
 /*non so perche ma obbligatori*/
 .numeroSelezionato
 {
     background-color: rgb(221, 221, 221);
 }
 
-.caselleIniziali
+.casellaIniziale
 {
     background-color: rgb(221, 221, 221);
 }
