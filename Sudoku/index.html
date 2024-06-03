@@ -6,16 +6,16 @@
     </head>
     <body>
         <div id="background">
-            <h1>Sudoku</h1>
+            <h1 id="titolo">Sudoku</h1>
+            <hr>
             <br>
             <div id="griglia"></div>
             <br>
             <div id="spazioNumeri"></div>
-            <br>
-            <br>
             <div id="controlli">
-                <div id="invio" class="bottoni">Invia</div>
-                <div id="reset" class="bottoni">Reset</div>
+                <button class="bottoni" onclick="FineGioco()">Invia</button>
+                <button class="bottoni" onclick="AutoCompleta()">Auto</button>
+                <button class="bottoni" onclick="RicominciaGioco()">Reset</button>
             </div>
         </div>
     </body>

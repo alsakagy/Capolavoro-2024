@@ -57,6 +57,59 @@ function IniziaGioco()
     }
 }
 
+function RicominciaGioco()
+{
+    NuovoSudoku();
+    /*for(let riga = 0; riga < 9; riga++)
+    {
+        for(let colo = 0; colo < 9; colo++)
+        {
+            let id = riga.toString() + "-" + colo.toString(); //id di ogni casella tramite iterazioni dei for
+            if(grigliaIniziale[riga][colo] == "-")
+            {
+                document.getElementById(id).innerText = ""; // inserisci uno spazio vuoto
+            }else
+            {
+                document.getElementById(id).innerText = grigliaIniziale[riga][colo]; // inserisce il numero corretto
+            }
+        }
+    }*/
+}
+
+function FineGioco()
+{
+    for(let riga = 0; riga < 9; riga++)
+    {
+        for(let colo = 0; colo < 9; colo++)
+        {
+            let id = riga.toString() + "-" + colo.toString(); //id di ogni casella tramite iterazioni dei for
+            if (document.getElementById(id).innerText == "") // se è uguale a nulla
+            {
+                alert("il sudoku non è completo"); // allora non è stato completato
+                return; // ferma la funzione
+            }
+            else if (document.getElementById(id).innerText != soluzione[riga][colo]) // se e diverso dalla soluzione
+            {
+                alert("il sudoku non è corretto"); // allora è sbagliato
+                return; // ferma la funzione
+            }
+        }
+    }
+    alert("il sudoku è corretto, hai vinto") // altrimenti è completato
+}
+
+function AutoCompleta()
+{
+    for(let riga = 0; riga < 9; riga++)
+    {
+        for(let colo = 0; colo < 9; colo++)
+        {
+            let id = riga.toString() + "-" + colo.toString(); //id di ogni casella tramite iterazioni dei for
+            document.getElementById(id).innerText = soluzione[riga][colo]; // inserisce il numero corretto
+        }
+    }
+}
+
 function NumeroSelezionato()
 {
     if (numSele != null) // se è stato già selezionato un altro numero, lo deseleziona
@@ -91,10 +144,290 @@ function CasellaSelezionata()
         if(controllo == true) // se non è una casella iniziale
         {
             this.innerText = numSele.id; // inserisce il numero nella casella della griglia
-        }else
-        {
-            numErrori++; // incrementa il numero di errori
         }
     }
 }
 
+function ControlloOrizzontale(a)
+{
+    let riga = a.toString().split("-");
+
+    for(let i = 0; i < 9; i++)
+    {
+        let id = riga[0] + "-" + i;
+        if(id != a)
+        {
+            if(document.getElementById(a).innerText == document.getElementById(id).innerText)
+            {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+function ControlloVerticale(a)
+{
+    let colo = a.toString().split("-");
+
+    for(let i = 0; i < 9; i++)
+    {
+        let id = i + "-" + colo[1];
+        if(id != a)
+        {
+            if(document.getElementById(a).innerText == document.getElementById(id).innerText)
+            {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+function ControlloQuadrato(a)
+{
+    let temp = a.toString().split("-");
+    switch(temp[0])
+    {
+        case "0":
+        case "1":
+        case "2":
+            switch(temp[1])
+            {
+                case "0":
+                case "1":
+                case "2":
+                    // quadrato alto-sinistra
+                    for(let i = 0; i < 3; i++)
+                        {
+                            for(let j = 0; j < 3; j++)
+                            {
+                                let id = i + "-" + j;
+                                 if(id != a)
+                                {
+                                    if(document.getElementById(a).innerText == document.getElementById(id).innerText)
+                                    {
+                                        return false;
+                                    } 
+                                }
+                            }
+                        }
+                    return true;
+                    break;
+                case "3":
+                case "4":
+                case "5":
+                    // quadrato alto-centro
+                    for(let i = 0; i < 3; i++)
+                        {
+                            for(let j = 3; j < 6; j++)
+                            {
+                                let id = i + "-" + j;
+                                 if(id != a)
+                                {
+                                    if(document.getElementById(a).innerText == document.getElementById(id).innerText)
+                                    {
+                                        return false;
+                                    } 
+                                }
+                            }
+                        }
+                    return true;
+                    break;
+                case "6":
+                case "7":
+                case "8":
+                    // quadrato alto-destra
+                    for(let i = 0; i < 3; i++)
+                        {
+                            for(let j = 6; j < 9; j++)
+                            {
+                                let id = i + "-" + j;
+                                 if(id != a)
+                                {
+                                    if(document.getElementById(a).innerText == document.getElementById(id).innerText)
+                                    {
+                                        return false;
+                                    } 
+                                }
+                            }
+                        }
+                    return true;
+                    break;
+            }
+            break;
+        case "3":
+        case "4":
+        case "5":
+            switch(temp[1])
+            {
+                case "0":
+                case "1":
+                case "2":
+                    // quadrato centro-sinistra
+                    for(let i = 3; i < 6; i++)
+                        {
+                            for(let j = 0; j < 3; j++)
+                            {
+                                let id = i + "-" + j;
+                                 if(id != a)
+                                {
+                                    if(document.getElementById(a).innerText == document.getElementById(id).innerText)
+                                    {
+                                        return false;
+                                    } 
+                                }
+                            }
+                        }
+                    return true;
+                    break;
+                case "3":
+                case "4":
+                case "5":
+                    // quadrato centro-centro
+                    for(let i = 3; i < 6; i++)
+                        {
+                            for(let j = 3; j < 6; j++)
+                            {
+                                let id = i + "-" + j;
+                                 if(id != a)
+                                {
+                                    if(document.getElementById(a).innerText == document.getElementById(id).innerText)
+                                    {
+                                        return false;
+                                    } 
+                                }
+                            }
+                        }
+                    return true;
+                    break;
+                case "6":
+                case "7":
+                case "8":
+                    // quadrato centro-destra
+                    for(let i = 3; i < 6; i++)
+                        {
+                            for(let j = 6; j < 9; j++)
+                            {
+                                let id = i + "-" + j;
+                                 if(id != a)
+                                {
+                                    if(document.getElementById(a).innerText == document.getElementById(id).innerText)
+                                    {
+                                        return false;
+                                    } 
+                                }
+                            }
+                        }
+                    return true;
+                    break;
+            }
+            break;
+        case "6":
+        case "7":
+        case "8":
+            switch(temp[1])
+            {
+                case "0":
+                case "1":
+                case "2":
+                    // quadrato basso-sinistra
+                    for(let i = 6; i < 9; i++)
+                        {
+                            for(let j = 0; j < 3; j++)
+                            {
+                                let id = i + "-" + j;
+                                 if(id != a)
+                                {
+                                    if(document.getElementById(a).innerText == document.getElementById(id).innerText)
+                                    {
+                                        return false;
+                                    } 
+                                }
+                            }
+                        }
+                    return true;
+                    break;
+                case "3":
+                case "4":
+                case "5":
+                    // quadrato basso-centro
+                    for(let i = 6; i < 9; i++)
+                        {
+                            for(let j = 3; j < 6; j++)
+                            {
+                                let id = i + "-" + j;
+                                 if(id != a)
+                                {
+                                    if(document.getElementById(a).innerText == document.getElementById(id).innerText)
+                                    {
+                                        return false;
+                                    } 
+                                }
+                            }
+                        }
+                    return true;
+                    break;
+                case "6":
+                case "7":
+                case "8":
+                    // quadrato basso-destra
+                    for(let i = 6; i < 9; i++)
+                        {
+                            for(let j = 6; j < 9; j++)
+                            {
+                                let id = i + "-" + j;
+                                 if(id != a)
+                                {
+                                    if(document.getElementById(a).innerText == document.getElementById(id).innerText)
+                                    {
+                                        return false;
+                                    } 
+                                }
+                            }
+                        }
+                    return true;
+                    break;
+            }
+            break;
+    }
+}
+
+function Random(min, max)
+{
+    return Math.floor(Math.random() * ((max + 1) - min)) + min;
+}
+
+function NuovoSudoku()
+{
+    for(let riga = 0; riga < 9; riga++)
+    {
+        for(let colo = 0; colo < 9; colo++)
+        {
+            let id = riga.toString() + "-" + colo.toString();
+            document.getElementById(id).innerText = "";
+        }
+    }
+
+    for(let riga = 0; riga < 9; riga++)
+    {
+        for(let colo = 0; colo < 9; colo++)
+        {
+            let id = riga.toString() + "-" + colo.toString(); 
+            let a = document.getElementById(id);
+            let Controllo = false;
+            while(Controllo == false)
+            {
+                a.innerText = Random(1,9);
+                if(ControlloOrizzontale(a.id) == true && ControlloVerticale(a.id) == true && ControlloQuadrato(a.id) == true)
+                {
+                    Controllo = true;
+                }
+            }
+            Controllo = false;
+            //alert("inserito il numero " + a.innerHTML + "nella casella " + id);
+        }
+    }
+}

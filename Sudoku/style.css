@@ -6,24 +6,41 @@ body
     background-color: antiquewhite;
 }
 
+hr
+{
+    width: 448px;
+    height: 1px;
+    background-color: black;
+    border-color: rgb(21, 21, 21);
+}
+
 /* attributi che si danno a tutti quelli che hanno l'id come quello indicato*/
 #background
 {
     width: 500px;
-    height: 700px;
+    height: 735px;
+    border-radius: 5px;
 
     background-color: rgb(211, 197, 179);
     margin: 0 auto;
 }
 
+#titolo
+{
+    padding-top: 10px;
+}
+
 #controlli
 {
-    width: 450px;
-    height: 50px;
+    width: 400px;
+    height: 75px;
+    background-color: rgb(171, 160, 147);
+    border-radius: 5px;
 
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
 }
 
 #griglia
@@ -41,6 +58,9 @@ body
 {
     width: 450px;
     height: 50px;
+    background-color: rgb(171, 160, 147);
+    padding: 10px;
+    border-radius: 5px;
 
     margin: 0 auto;
     display: flex;
@@ -71,6 +91,7 @@ body
     border: 1px solid black;
     margin: 2px;
     background-color: white;
+    border-radius: 5px;
 
     /* attributi per il testo*/
     font-size: 20px;
@@ -87,11 +108,13 @@ body
     border-radius: 5px;
     border: 1px solid black;
 
+    font-size: 16px;
+    font-weight: bold;
     background-color: rgb(221, 221, 221);
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    justify-content: space-evenly;
     align-content: center;
 }
 
