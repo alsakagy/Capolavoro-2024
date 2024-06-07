@@ -4,6 +4,7 @@
 var numSele = null;
 var casellaSele = null;
 var numErrori = 0;
+let iVerticale = 0;
 
 // numeri da inserire all'inizio del gioco
 var grigliaIniziale = [ "-2-5-1-9-", "8--2-3--6", "-3--6--7-", "--1---6--", "54-----19", "--2---7--", "-9--3--8-", "2--8-4--7", "-1-9-7-6-" ]
@@ -37,11 +38,11 @@ function IniziaGioco()
         {
             let casella = document.createElement("div"); // crea un nuovo elemento di tipo div
             casella.id = riga.toString() + "-" + colo.toString();
-            if (grigliaIniziale[riga][colo] != "-") // se c'è un "-" lo salta, lasciando lo spazio vuoto
-            {
-                casella.innerText = grigliaIniziale[riga][colo];
-                casella.classList.add("casellaIniziale");// aggiunge l'elemento nella classe "casellaIniziale"
-            }
+            //if (grigliaIniziale[riga][colo] != "-") // se c'è un "-" lo salta, lasciando lo spazio vuoto
+            //{
+            //    casella.innerText = grigliaIniziale[riga][colo];
+            //    casella.classList.add("casellaIniziale");// aggiunge l'elemento nella classe "casellaIniziale"
+            //}
             if (riga == 2 || riga == 5)
             {
                 casella.style.borderBottom = "1px solid black"; // creo una linea più marcata rispetto alle altre
@@ -55,25 +56,8 @@ function IniziaGioco()
             document.getElementById("griglia").append(casella); // inserisce il nuovo div all'interno del div con l'id "griglia"
         }
     }
-}
 
-function RicominciaGioco()
-{
-    NuovoSudoku();
-    /*for(let riga = 0; riga < 9; riga++)
-    {
-        for(let colo = 0; colo < 9; colo++)
-        {
-            let id = riga.toString() + "-" + colo.toString(); //id di ogni casella tramite iterazioni dei for
-            if(grigliaIniziale[riga][colo] == "-")
-            {
-                document.getElementById(id).innerText = ""; // inserisci uno spazio vuoto
-            }else
-            {
-                document.getElementById(id).innerText = grigliaIniziale[riga][colo]; // inserisce il numero corretto
-            }
-        }
-    }*/
+    Reset();
 }
 
 function FineGioco()
@@ -148,286 +132,149 @@ function CasellaSelezionata()
     }
 }
 
-function ControlloOrizzontale(a)
-{
-    let riga = a.toString().split("-");
-
-    for(let i = 0; i < 9; i++)
-    {
-        let id = riga[0] + "-" + i;
-        if(id != a)
-        {
-            if(document.getElementById(a).innerText == document.getElementById(id).innerText)
-            {
-                return false;
-            }
-        }
-    }
-
-    return true;
-}
-
-function ControlloVerticale(a)
-{
-    let colo = a.toString().split("-");
-
-    for(let i = 0; i < 9; i++)
-    {
-        let id = i + "-" + colo[1];
-        if(id != a)
-        {
-            if(document.getElementById(a).innerText == document.getElementById(id).innerText)
-            {
-                return false;
-            }
-        }
-    }
-
-    return true;
-}
-
-function ControlloQuadrato(a)
-{
-    let temp = a.toString().split("-");
-    switch(temp[0])
-    {
-        case "0":
-        case "1":
-        case "2":
-            switch(temp[1])
-            {
-                case "0":
-                case "1":
-                case "2":
-                    // quadrato alto-sinistra
-                    for(let i = 0; i < 3; i++)
-                        {
-                            for(let j = 0; j < 3; j++)
-                            {
-                                let id = i + "-" + j;
-                                 if(id != a)
-                                {
-                                    if(document.getElementById(a).innerText == document.getElementById(id).innerText)
-                                    {
-                                        return false;
-                                    } 
-                                }
-                            }
-                        }
-                    return true;
-                    break;
-                case "3":
-                case "4":
-                case "5":
-                    // quadrato alto-centro
-                    for(let i = 0; i < 3; i++)
-                        {
-                            for(let j = 3; j < 6; j++)
-                            {
-                                let id = i + "-" + j;
-                                 if(id != a)
-                                {
-                                    if(document.getElementById(a).innerText == document.getElementById(id).innerText)
-                                    {
-                                        return false;
-                                    } 
-                                }
-                            }
-                        }
-                    return true;
-                    break;
-                case "6":
-                case "7":
-                case "8":
-                    // quadrato alto-destra
-                    for(let i = 0; i < 3; i++)
-                        {
-                            for(let j = 6; j < 9; j++)
-                            {
-                                let id = i + "-" + j;
-                                 if(id != a)
-                                {
-                                    if(document.getElementById(a).innerText == document.getElementById(id).innerText)
-                                    {
-                                        return false;
-                                    } 
-                                }
-                            }
-                        }
-                    return true;
-                    break;
-            }
-            break;
-        case "3":
-        case "4":
-        case "5":
-            switch(temp[1])
-            {
-                case "0":
-                case "1":
-                case "2":
-                    // quadrato centro-sinistra
-                    for(let i = 3; i < 6; i++)
-                        {
-                            for(let j = 0; j < 3; j++)
-                            {
-                                let id = i + "-" + j;
-                                 if(id != a)
-                                {
-                                    if(document.getElementById(a).innerText == document.getElementById(id).innerText)
-                                    {
-                                        return false;
-                                    } 
-                                }
-                            }
-                        }
-                    return true;
-                    break;
-                case "3":
-                case "4":
-                case "5":
-                    // quadrato centro-centro
-                    for(let i = 3; i < 6; i++)
-                        {
-                            for(let j = 3; j < 6; j++)
-                            {
-                                let id = i + "-" + j;
-                                 if(id != a)
-                                {
-                                    if(document.getElementById(a).innerText == document.getElementById(id).innerText)
-                                    {
-                                        return false;
-                                    } 
-                                }
-                            }
-                        }
-                    return true;
-                    break;
-                case "6":
-                case "7":
-                case "8":
-                    // quadrato centro-destra
-                    for(let i = 3; i < 6; i++)
-                        {
-                            for(let j = 6; j < 9; j++)
-                            {
-                                let id = i + "-" + j;
-                                 if(id != a)
-                                {
-                                    if(document.getElementById(a).innerText == document.getElementById(id).innerText)
-                                    {
-                                        return false;
-                                    } 
-                                }
-                            }
-                        }
-                    return true;
-                    break;
-            }
-            break;
-        case "6":
-        case "7":
-        case "8":
-            switch(temp[1])
-            {
-                case "0":
-                case "1":
-                case "2":
-                    // quadrato basso-sinistra
-                    for(let i = 6; i < 9; i++)
-                        {
-                            for(let j = 0; j < 3; j++)
-                            {
-                                let id = i + "-" + j;
-                                 if(id != a)
-                                {
-                                    if(document.getElementById(a).innerText == document.getElementById(id).innerText)
-                                    {
-                                        return false;
-                                    } 
-                                }
-                            }
-                        }
-                    return true;
-                    break;
-                case "3":
-                case "4":
-                case "5":
-                    // quadrato basso-centro
-                    for(let i = 6; i < 9; i++)
-                        {
-                            for(let j = 3; j < 6; j++)
-                            {
-                                let id = i + "-" + j;
-                                 if(id != a)
-                                {
-                                    if(document.getElementById(a).innerText == document.getElementById(id).innerText)
-                                    {
-                                        return false;
-                                    } 
-                                }
-                            }
-                        }
-                    return true;
-                    break;
-                case "6":
-                case "7":
-                case "8":
-                    // quadrato basso-destra
-                    for(let i = 6; i < 9; i++)
-                        {
-                            for(let j = 6; j < 9; j++)
-                            {
-                                let id = i + "-" + j;
-                                 if(id != a)
-                                {
-                                    if(document.getElementById(a).innerText == document.getElementById(id).innerText)
-                                    {
-                                        return false;
-                                    } 
-                                }
-                            }
-                        }
-                    return true;
-                    break;
-            }
-            break;
-    }
-}
-
 function Random(min, max)
 {
-    return Math.floor(Math.random() * ((max + 1) - min)) + min;
+    return Math.floor(Math.random() * ((max + 1) - min)) + min; // prende un numero random tra min e max
 }
 
-function NuovoSudoku()
+function Reset()
 {
+    let Matrice = new Array(81); // creo un array di 81 elementi (tutta la tabella 9*9)
+    let Risultato = new Array(81);
+
+    for(let i = 0; i < Matrice.length; i++)
+    {
+        Matrice[i] = new Array(9); // per ogni elemento dell'array aggiungo un altro array da 9 elementi (casella singola 1*1)
+
+        for(let j = 0; j < Matrice[i].length; j++)
+        {
+            Matrice[i][j] = j + 1; // aggiungo ad ogni elemento della regione i numeri dall'1 al 9
+        }
+    }
+
+    for(let i = 0; i < Matrice.length; i++)
+    {
+        let rig = Math.floor(i / 9);
+        let indiceRandom = Random(0,Matrice[i].length - 1); // prende un indice di un numero casuale tra quelli dell' array in questione
+        Risultato[i] = Matrice[i][indiceRandom]; // imposta quel numero nella casella in questione 
+        Modifiche(i,Matrice[i][indiceRandom],Matrice,rig);
+        iVerticale++; // creata all'inizio del file, equivale a 0
+        if(iVerticale % 9 == 0) // continua ad incrementare e quando arriva a 9 ritorna a 0
+        {
+            iVerticale = 0;
+        }
+    }
+
+    // ciclo per l'inserimeto dei valori nei div
     for(let riga = 0; riga < 9; riga++)
     {
         for(let colo = 0; colo < 9; colo++)
         {
             let id = riga.toString() + "-" + colo.toString();
-            document.getElementById(id).innerText = "";
+            let casella = document.getElementById(id);
+
+            casella.innerText = Risultato[(riga + colo) + ((9 * riga) - riga)]; // ottiene i numeri dallo 0 al 80 tramite l'utilizzo di riga e colo
+
+            // serve solo per la parte grafica
+            for(let i = 0; i < casella.classList.length; i++)
+            {
+                if(casella.classList[i] == "casellaIniziale")
+                {
+                    casella.classList.remove("casellaIniziale");
+                }
+            }
+        }
+    }
+}
+
+function Modifiche(indiceMatrice, n, matrice, rig)
+{
+    let index; // variabile indice
+
+    // rimozione numero su riga orizziontale
+    for(let i = 0 + (rig * 9); i < 9 + (rig * 9); i++)
+    {
+        index = matrice[i].indexOf(n); // ottiene l'indice all'interno dell'array del numero in questione
+        if(index > -1) // se non è presente il risultato sarà -1
+        {
+            matrice[i].splice(index, 1); // rimuove il numero alla posizione index, solo una volta
         }
     }
 
-    for(let riga = 0; riga < 9; riga++)
+    // rimozione numero su riga verticale
+    for(let i = 0 + indiceMatrice; i <= 72 + iVerticale; i += 9)
     {
-        for(let colo = 0; colo < 9; colo++)
+        index = matrice[i].indexOf(n); // ottiene l'indice all'interno dell'array del numero in questione
+        if(index > -1) // se non è presente il risultato sarà -1
         {
-            let id = riga.toString() + "-" + colo.toString(); 
-            let a = document.getElementById(id);
-            let Controllo = false;
-            while(Controllo == false)
-            {
-                a.innerText = Random(1,9);
-                if(ControlloOrizzontale(a.id) == true && ControlloVerticale(a.id) == true && ControlloQuadrato(a.id) == true)
+            matrice[i].splice(index, 1); // rimuove il numero alla posizione index, solo una volta
+        }
+    }
+
+    rig = Math.floor(rig / 3) // incrementa di 1 ogni 3 righe passate, quindi ci troviamo nella regione sottostante
+    indiceMatrice = Math.floor(indiceMatrice / 3); // indica la regione in cui ci troviamo (0 = altro a sinistra, 1 = altro in centro....)
+    // rimozione numero su regione
+    switch(indiceMatrice)
+    {
+        // servono cicli diversi perchè utilizzo le variabili locali del ciclo per indicare "la posizione nella matrice"
+        case 0:
+        case 3:
+        case 6:
+            // ciclo per le regioni a sinistra
+            for(let i = (0 + (rig * 9)) ; i < (21 + (rig * 9)); i++)
+            {           
+                // se esce fuori dalla riga della regione (3*3) incrementa di 6, che lo porta alla riga successiva
+                if(i == (3 + (rig * 9)) || i == (12 + (rig * 9)))
                 {
-                    Controllo = true;
+                    i += 6;
+                }
+
+                index = matrice[i].indexOf(n); // ottiene l'indice all'interno dell'array del numero in questione
+                if(index > -1) // se non è presente il risultato sarà -1
+                {
+                    matrice[i].splice(index, 1);
                 }
             }
-            Controllo = false;
-            //alert("inserito il numero " + a.innerHTML + "nella casella " + id);
-        }
+            break;
+        case 1:
+        case 4:
+        case 7:
+            // ciclo per le regioni centrali
+            for(let i = (3 + (rig * 9)) ; i < (24 + (rig * 9)); i++)
+            {
+                // se esce fuori dalla riga della regione (3*3) incrementa di 6, che lo porta alla riga successiva
+                if(i == (6 + (rig * 9)) || i == (15 + (rig * 9)))
+                {
+                    i += 6;
+                }
+
+                index = matrice[i].indexOf(n); // ottiene l'indice all'interno dell'array del numero in questione
+                if(index > -1) // se non è presente il risultato sarà -1
+                {
+                    matrice[i].splice(index, 1);
+                }
+                
+
+            }
+            break;
+        case 2:
+        case 5:
+        case 8:
+            // ciclo per le regioni a destra
+            for(let i = (6 + (rig * 9)) ; i < (27 + (rig * 9)); i++)
+            {
+                // se esce fuori dalla riga della regione (3*3) incrementa di 6, che lo porta alla riga successiva
+                if(i == (9 + (rig * 9)) || i == (18 + (rig * 9)))
+                {
+                    i += 6;
+                }
+
+                index = matrice[i].indexOf(n); // ottiene l'indice all'interno dell'array del numero in questione
+                if(index > -1) // se non è presente il risultato sarà -1
+                {
+                    matrice[i].splice(index, 1);
+                }
+            }
+            break;
     }
 }

@@ -118,6 +118,10 @@ hr
     align-content: center;
 }
 
+.bottoni:active {
+    background-color: rgb(164, 164, 164);
+}
+
 /*non so perche ma obbligatori*/
 .numeroSelezionato
 {
